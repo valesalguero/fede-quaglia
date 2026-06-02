@@ -688,8 +688,8 @@
     <div class="container">
       <div class="hero-content">
         <span class="eyebrow" style="color: var(--wood);">Visualización & Diseño</span>
-        <h1>....</h1>
-        <p>kkkkkkkk</p>
+        <h1>Visualización Arquitectónica de Vanguardia</h1>
+        <p>Transformo conceptos abstractos en experiencias visuales memorables de alta fidelidad.</p>
         <div style="display: flex; gap: 16px; flex-wrap: wrap;">
           <a href="#proyectos" class="btn">Explorar Obras</a>
           <a href="#contacto" class="btn btn-outline">Escribirme</a>
@@ -723,8 +723,7 @@
         <p>Hacé clic sobre cualquier proyecto para inspeccionar la galería completa de capturas, planimetrías y detalles técnicos.</p>
       </div>
 
-      <div class="portfolio-grid" id="portfolio-container">
-        </div>
+      <div class="portfolio-grid" id="portfolio-container"></div>
 
       <div class="load-more-container" id="load-more-box">
         <button class="btn" onclick="showAllProjects()">Mostrar más proyectos</button>
@@ -735,15 +734,14 @@
   <div class="modal-overlay" id="project-modal" onclick="closeModal(event)">
     <div class="modal-content" onclick="event.stopPropagation()">
       <button class="close-modal-btn" onclick="toggleModal(false)">&times;</button>
-      <div class="modal-gallery" id="modal-gallery-container">
-        </div>
+      <div class="modal-gallery" id="modal-gallery-container"></div>
       <div class="modal-body-text">
         <h2 id="modal-title"></h2>
         <div class="meta" id="modal-meta"></div>
         <p id="modal-desc"></p>
       </div>
     </div>
-  </div>
+  </section>
 
   <section id="contacto" class="section">
     <div class="container">
@@ -826,26 +824,38 @@
   </section>
 
   <script>
-    const defaultProjects = [
-      {
-        id: "1",
-        title: "Casa Terrazas",
-        category: "Residencial",
-        year: "2025",
-        img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80",
-        gallery: [
-          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80"
-        ],
-        desc: "Vivienda unifamiliar con integración de espacios verdes y hormigón visto.\n\nEl proyecto se organiza en dos plantas liberando el terreno para generar patios internos que proveen iluminación cenital en todos los pasillos de distribución."
-      }
-    ];
+    // CONFIGURACIÓN DE SUPABASE
+    const SUPABASE_URL = "https://debizrveislybpsiimln.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRlYml6cnZlaXNseWJwc2lpbWxuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0MzM3MDEsImV4cCI6MjA5NjAwOTcwMX0.PuP0YGfLSeoeARZcSm2SNZhuVJ8-UwW6ZU5DGeVwq_0";
 
-    let projects = JSON.parse(localStorage.getItem('arquitectura_local_projects')) || defaultProjects;
+    let projects = [];
     let isAdmin = false;
-    
     let projectsLimit = 3; 
     let showAll = false;
+
+    // Headers reutilizables para las peticiones HTTP a Supabase REST API
+    const getHeaders = () => ({
+      "apikey": SUPABASE_ANON_KEY,
+      "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+      "Content-Type": "application/json"
+    });
+
+    // LEER PROYECTOS DESDE SUPABASE (Ordenados por fecha de creación desc)
+    async function fetchProjects() {
+      try {
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/proyectos?select=*&order=created_at.desc`, {
+          method: "GET",
+          headers: getHeaders()
+        });
+        
+        if (!response.ok) throw new Error("Error cargando datos de Supabase");
+        
+        projects = await response.json();
+        renderProjects();
+      } catch (error) {
+        console.error("Error en fetchProjects:", error);
+      }
+    }
 
     function renderProjects() {
       const container = document.getElementById('portfolio-container');
@@ -904,7 +914,8 @@
     }
 
     function openProject(id) {
-      const p = projects.find(item => item.id === id);
+      // Supabase usa IDs enteros o uuid. Buscamos compatibilidad convirtiendo a String
+      const p = projects.find(item => item.id.toString() === id.toString());
       if (!p) return;
 
       document.getElementById('modal-title').innerText = p.title;
@@ -980,6 +991,7 @@
       renderProjects();
     }
 
+    // CREAR PROYECTO NUEVO EN SUPABASE
     async function addProject(e) {
       e.preventDefault();
       const submitBtn = document.getElementById('submit-btn');
@@ -1005,42 +1017,61 @@
         }
 
         const newProject = {
-          id: Date.now().toString(),
           title,
           category,
           year,
           img: compressedCover,
-          gallery: compressedGallery,
+          gallery: compressedGallery, // Se guarda directo como JSON array gracias a Supabase
           desc
         };
 
-        projects.push(newProject);
-        localStorage.setItem('arquitectura_local_projects', JSON.stringify(projects));
-        
+        submitBtn.innerText = 'Subiendo a Supabase...';
+
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/proyectos`, {
+          method: "POST",
+          headers: getHeaders(),
+          body: JSON.stringify(newProject)
+        });
+
+        if (!response.ok) throw new Error("Error al insertar el proyecto en Supabase");
+
         showAll = false;
-        renderProjects();
+        await fetchProjects(); // Recargamos directo del servidor
         
         document.getElementById('project-form').reset();
-        alert('¡Proyecto cargado exitosamente!');
+        alert('¡Proyecto cargado exitosamente en la nube!');
 
       } catch (error) {
         console.error(error);
-        alert('Hubo un problema al comprimir las imágenes.');
+        alert('Hubo un problema al guardar el proyecto.');
       } finally {
         submitBtn.innerText = 'Publicar Obra';
         submitBtn.disabled = false;
       }
     }
 
-    function deleteProject(id) {
-      if (confirm('¿Seguro que deseas eliminar esta obra?')) {
-        projects = projects.filter(p => p.id !== id);
-        localStorage.setItem('arquitectura_local_projects', JSON.stringify(projects));
-        renderProjects();
+    // ELIMINAR PROYECTO EN SUPABASE
+    async function deleteProject(id) {
+      if (confirm('¿Seguro que deseas eliminar esta obra permanentemente?')) {
+        try {
+          const response = await fetch(`${SUPABASE_URL}/rest/v1/proyectos?id=eq.${id}`, {
+            method: "DELETE",
+            headers: getHeaders()
+          });
+
+          if (!response.ok) throw new Error("Error al eliminar de Supabase");
+
+          await fetchProjects();
+          alert('Proyecto eliminado con éxito.');
+        } catch (error) {
+          console.error(error);
+          alert('No se pudo eliminar el proyecto.');
+        }
       }
     }
 
-    renderProjects();
+    // Inicialización al cargar la página
+    fetchProjects();
   </script>
 </body>
 </html>
