@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfolio profesional de arquitectura y diseño de espacios." />
+  <title>Arq. Federico Quaglia | Portfolio Profesional</title>
+  <style>
+    :root {
+      /* Paleta basada en tu identidad visual */
+      --bg: #f5f2eb;           
+      --surface: #ffffff;      
+      --ink: #11261f;          
+      --forest: #1b3d32;       
+      --forest-light: #285445; 
+      --muted: #54635e;        
+      --wood: #bcab94;         
+      --line: #e3ded5;         
+      --soft: #eae5da;         
+      --accent: #1b3d32;       
+      
+      --shadow: 0 30px 80px rgba(27, 61, 50, 0.08);
+      --radius: 4px; /* Bordes más rectos y limpios, estilo arquitectónico */
+      --max: 1200px;
+      --danger: #b32626;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+      line-height: 1.65;
+      overflow-x: hidden;
+      letter-spacing: -0.01em;
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      border: 0;
+      cursor: pointer;
+      font: inherit;
+      background: none;
+    }
+
+    .container {
+      width: min(100% - 60px, var(--max));
+      margin-inline: auto;
+    }
+
+    .eyebrow {
+      color: var(--wood);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      display: inline-block;
+      margin-bottom: 12px;
+    }
+
+    .section {
+      padding: 140px 0;
+      scroll-margin-top: 88px;
+    }
+
+    .section-heading {
+      max-width: 800px;
+      margin-bottom: 64px;
+    }
+
+    .section-heading h2 {
+      font-family: Georgia, serif;
+      font-size: clamp(2.5rem, 5vw, 3.8rem);
+      font-weight: 400;
+      line-height: 1.1;
+      color: var(--forest);
+      margin-top: 8px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin-top: 16px;
+    }
+
+    /* BOTONES PREMIUM */
+    .btn {
+      align-items: center;
+      background: var(--forest);
+      border: 1px solid var(--forest);
+      color: var(--bg);
+      display: inline-flex;
+      font-size: 0.75rem;
+      font-weight: 700;
+      gap: 12px;
+      justify-content: center;
+      letter-spacing: 0.15em;
+      min-height: 52px;
+      padding: 0 32px;
+      text-transform: uppercase;
+      transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+    }
+
+    .btn:hover {
+      background: transparent;
+      color: var(--forest);
+      transform: translateY(-2px);
+    }
+
+    .btn.btn-outline {
+      background: transparent;
+      color: var(--bg);
+      border-color: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(4px);
+    }
+
+    .btn.btn-outline:hover {
+      background: var(--bg);
+      color: var(--forest);
+      border-color: var(--bg);
+    }
+
+    .btn.btn-danger {
+      background: var(--danger);
+      border-color: var(--danger);
+      color: var(--surface);
+    }
+    .btn.btn-danger:hover {
+      background: transparent;
+      color: var(--danger);
+    }
+
+    /* NAVBAR MINIMALISTA */
+    .navbar {
+      backdrop-filter: blur(20px);
+      background: rgba(245, 242, 235, 0.85);
+      border-bottom: 1px solid rgba(227, 222, 213, 0.5);
+      left: 0;
+      position: fixed;
+      right: 0;
+      top: 0;
+      z-index: 100;
+      transition: all 300ms ease;
+    }
+
+    .nav-inner {
+      align-items: center;
+      display: flex;
+      height: 88px;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-logo-mini {
+      width: 38px;
+      height: 38px;
+      background-color: var(--forest);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--wood);
+      font-family: Georgia, serif;
+      font-size: 0.95rem;
+      font-weight: bold;
+      border: 1px solid var(--wood);
+    }
+
+    .brand-text {
+      display: grid;
+      gap: 1px;
+    }
+
+    .brand strong {
+      font-family: Georgia, serif;
+      font-size: 1.2rem;
+      font-weight: 400;
+      line-height: 1;
+      color: var(--forest);
+      letter-spacing: 0.02em;
+    }
+
+    .brand span {
+      color: var(--muted);
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      align-items: center;
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      position: relative;
+      text-transform: uppercase;
+      transition: color 200ms ease;
+    }
+
+    .nav-links a::after {
+      background: var(--wood);
+      bottom: -6px;
+      content: "";
+      height: 1px;
+      left: 0;
+      position: absolute;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 250ms ease;
+      width: 100%;
+    }
+
+    .nav-links a:hover { color: var(--forest); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    /* REDISEÑO: HERO IMPACTANTE (PANTALLA COMPLETA Editorial) */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 700px;
+      display: flex;
+      align-items: center;
+      color: #ffffff;
+      overflow: hidden;
+      background: #0d1a16;
+    }
+
+    .hero-bg-cover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.45; /* Atenuación para que el texto sea perfectamente legible */
+      filter: grayscale(15%);
+    }
+
+    .hero .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-content {
+      max-width: 750px;
+    }
+
+    .hero-content h1 {
+      font-family: Georgia, serif;
+      font-size: clamp(2.8rem, 7vw, 5.2rem);
+      font-weight: 400;
+      line-height: 1.05;
+      margin-top: 16px;
+      margin-bottom: 28px;
+      color: #ffffff;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    }
+
+    .hero-content p {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1.25rem;
+      max-width: 580px;
+      margin-bottom: 44px;
+      font-weight: 300;
+    }
+
+    /* REDISEÑO: SOBRE MÍ COMO REVISTA DE ARQUITECTURA */
+    .about-layout {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .about-sticky-side {
+      position: sticky;
+      top: 140px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .about-brand-badge {
+      width: 140px;
+      height: 140px;
+      background-color: var(--forest);
+      border-radius: 50%;
+      border: 2px solid var(--wood);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--wood);
+      font-family: Georgia, serif;
+      font-size: 2.8rem;
+      box-shadow: var(--shadow);
+    }
+
+    .about-sticky-side h3 {
+      font-family: Georgia, serif;
+      font-size: 2.4rem;
+      font-weight: 400;
+      color: var(--forest);
+      line-height: 1.2;
+    }
+
+    .about-main-text {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      border-left: 1px solid var(--line);
+      padding-left: 60px;
+    }
+
+    .about-main-text p {
+      color: var(--muted);
+      font-size: 1.15rem;
+      text-align: justify;
+    }
+
+    /* PORTFOLIO GRID (Manteniendo tus requerimientos de imagen entera) */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 48px;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      cursor: pointer;
+      transition: all 300ms ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow);
+      border-color: var(--wood);
+    }
+
+    /* Contenedor optimizado: Muestra la imagen COMPLETA con fondo fino texturado oscuro */
+    .project-img {
+      width: 100%;
+      height: 300px;
+      background: #0f1d19; 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .project-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain; 
+      transition: transform 400ms ease;
+    }
+
+    .project-card:hover .project-img img {
+      transform: scale(1.02);
+    }
+
+    .project-info {
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      background: var(--surface);
+    }
+
+    .project-meta {
+      display: flex;
+      justify-content: space-between;
+      color: var(--wood);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 14px;
+    }
+
+    .project-info h3 {
+      font-family: Georgia, serif;
+      font-size: 1.45rem;
+      font-weight: 400;
+      margin-bottom: 12px;
+      color: var(--forest);
+    }
+
+    .project-info p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .delete-btn-admin {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(179, 38, 38, 0.95);
+      color: white;
+      padding: 8px 14px;
+      font-size: 0.7rem;
+      font-weight: bold;
+      border-radius: var(--radius);
+      text-transform: uppercase;
+      display: none;
+      z-index: 10;
+      letter-spacing: 0.05em;
+    }
+
+    /* BOTÓN MOSTRAR MÁS ACCESIBLE */
+    .load-more-container {
+      text-align: center;
+      margin-top: 64px;
+    }
+
+    /* DETALLE DEL PROYECTO (MODAL INTERACTIVO PREMIUM) */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(11, 22, 18, 0.85);
+      backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 200;
+      transition: opacity 350ms ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal-content {
+      background: var(--bg);
+      width: min(94%, 1000px);
+      max-height: 90vh;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow-y: auto;
+      position: relative;
+      padding: 56px;
+      border: 1px solid var(--line);
+    }
+
+    .close-modal-btn {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      font-size: 2rem;
+      color: var(--forest);
+      line-height: 1;
+      z-index: 102;
+      transition: color 200ms ease;
+    }
+    .close-modal-btn:hover { color: var(--wood); }
+
+    .modal-gallery {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .modal-gallery img {
+      width: 100%;
+      height: auto;
+      max-height: 75vh;
+      object-fit: contain; 
+      background: #0f1d19;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+    }
+
+    .modal-body-text h2 {
+      font-family: Georgia, serif;
+      font-size: 2.4rem;
+      font-weight: 400;
+      margin-bottom: 12px;
+      color: var(--forest);
+    }
+
+    .modal-body-text .meta {
+      color: var(--wood);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 24px;
+    }
+
+    .modal-body-text p {
+      color: var(--muted);
+      font-size: 1.1rem;
+      white-space: pre-line;
+      text-align: justify;
+    }
+
+    /* SECCIÓN DE CONTACTO MINIMALISTA */
+    .contact-card {
+      background: var(--forest);
+      color: var(--bg);
+      border-radius: var(--radius);
+      padding: 80px 40px;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--wood);
+    }
+
+    .contact-card h3 {
+      font-family: Georgia, serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 400;
+      margin-bottom: 20px;
+      color: #ffffff;
+    }
+
+    .contact-card p {
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 1.15rem;
+      max-width: 550px;
+      margin: 0 auto 48px auto;
+    }
+
+    .contact-info-list {
+      display: flex;
+      justify-content: center;
+      gap: 64px;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+    }
+
+    .contact-item span {
+      display: block;
+      color: var(--wood);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 6px;
+    }
+
+    .contact-item strong { font-size: 1.1rem; color: #ffffff; font-weight: 400; }
+    
+    .contact-card .btn { background: var(--bg); color: var(--forest); border-color: var(--bg); }
+    .contact-card .btn:hover { background: transparent; color: var(--bg); }
+    .contact-card svg { height: 16px; width: 16px; fill: currentColor; }
+
+    /* PANEL ADMIN CONTEMPORÁNEO */
+    .admin-section {
+      background: var(--soft);
+      border-top: 1px solid var(--line);
+      padding: 80px 0;
+    }
+    .admin-box {
+      max-width: 650px;
+      margin: 0 auto;
+      background: var(--surface);
+      padding: 48px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--line);
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .form-group label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--forest);
+      letter-spacing: 0.05em;
+    }
+    .form-group input[type="text"], 
+    .form-group input[type="password"], 
+    .form-group textarea {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 1rem;
+      background: var(--bg);
+      color: var(--ink);
+      transition: border-color 200ms ease;
+    }
+    .form-group input:focus, .form-group textarea:focus {
+      outline: none;
+      border-color: var(--wood);
+    }
+    .form-group textarea { resize: vertical; height: 140px; }
+    .form-group input[type="file"] { padding: 8px 0; }
+    .form-group small { color: var(--muted); font-size: 0.78rem; margin-top: -2px; }
+    #admin-form-content { display: none; }
+
+    /* RESPONSIVE DESIGN */
+    @media (max-width: 992px) {
+      .about-layout { grid-template-columns: 1fr; gap: 48px; }
+      .about-sticky-side { position: relative; top: 0; align-items: center; text-align: center; }
+      .about-main-text { border-left: none; padding-left: 0; }
+    }
+
+    @media (max-width: 768px) {
+      .section { padding: 90px 0; }
+      .hero-content h1 { font-size: 2.8rem; }
+      .hero { height: auto; padding: 16px 0; min-height: 90vh; }
+      .contact-card { padding: 48px 24px; }
+      .contact-info-list { flex-direction: column; gap: 24px; }
+      .nav-links { display: none; }
+      .modal-content { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <div class="brand">
+        <div class="brand-logo-mini">Q4</div>
+        <div class="brand-text">
+          <strong>Arq. Federico Quaglia</strong>
+          <span>Estudio de Arquitectura</span>
+        </div>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#sobre-mi">Sobre Mí</a></li>
+        <li><a href="#proyectos">Proyectos</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+        <li><a href="#admin">🔒</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header id="inicio" class="hero">
+    <img class="hero-bg-cover" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=80" alt="Arquitectura de Vanguardia" />
+    <div class="container">
+      <div class="hero-content">
+        <span class="eyebrow" style="color: var(--wood);">Visualización & Diseño</span>
+        <h1>....</h1>
+        <p>kkkkkkkk</p>
+        <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+          <a href="#proyectos" class="btn">Explorar Obras</a>
+          <a href="#contacto" class="btn btn-outline">Escribirme</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="sobre-mi" class="section">
+    <div class="container">
+      <div class="about-layout">
+        <div class="about-sticky-side">
+          <div class="about-brand-badge">Q4</div>
+          <span class="eyebrow">Q4 render studio</span>
+          <h3>Federico Quaglia</h3>
+        </div>
+        <div class="about-main-text">
+          <p>Soy estudiante avanzado de Arquitectura y me especializo en visualización arquitectónica y diseño. Ayudo a transformar ideas y proyectos en representaciones claras, atractivas y realistas mediante renders, planos y material gráfico de presentación.</p>
+          <p>Mi trabajo combina creatividad, sensibilidad por el diseño y atención al detalle para comunicar cada proyecto de manera efectiva. Además de la representación visual, participo en el desarrollo y diseño de propuestas arquitectónicas, buscando soluciones que respondan tanto a aspectos funcionales como estéticos.</p>
+          <p>Trabajo en proyectos académicos, profesionales y particulares, creando imágenes y documentación que permiten comprender y valorar cada espacio antes de su construcción. Mi objetivo es convertir conceptos e ideas en experiencias visuales capaces de transmitir la esencia de cada proyecto.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="proyectos" class="section">
+    <div class="container">
+      <div class="section-heading">
+        <span class="eyebrow">Portfolio</span>
+        <h2>Obras Seleccionadas</h2>
+        <p>Hacé clic sobre cualquier proyecto para inspeccionar la galería completa de capturas, planimetrías y detalles técnicos.</p>
+      </div>
+
+      <div class="portfolio-grid" id="portfolio-container">
+        </div>
+
+      <div class="load-more-container" id="load-more-box">
+        <button class="btn" onclick="showAllProjects()">Mostrar más proyectos</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="modal-overlay" id="project-modal" onclick="closeModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="close-modal-btn" onclick="toggleModal(false)">&times;</button>
+      <div class="modal-gallery" id="modal-gallery-container">
+        </div>
+      <div class="modal-body-text">
+        <h2 id="modal-title"></h2>
+        <div class="meta" id="modal-meta"></div>
+        <p id="modal-desc"></p>
+      </div>
+    </div>
+  </div>
+
+  <section id="contacto" class="section">
+    <div class="container">
+      <div class="contact-card">
+        <span class="eyebrow" style="color: var(--wood);">Contacto</span>
+        <h3>¿Tenés una idea en mente?</h3>
+        <p>Disponible para colaboraciones con estudios de arquitectura, desarrollo de renders y diseños comerciales a medida.</p>
+        
+        <div class="contact-info-list">
+          <div class="contact-item">
+            <span>Email</span>
+            <strong>infoq4render@gmail.com</strong>
+          </div>
+          <div class="contact-item">
+            <span>Ubicación</span>
+            <strong>Córdoba, Argentina</strong>
+          </div>
+        </div>
+
+        <a href="https://wa.me/3534012667?text=Hola%20Federico!%20Vi%20tu%20portfolio%20web%20y%20me%20interesaría%20realizar%20una%20consulta%20sobre%20un%20proyecto." target="_blank" class="btn">
+          <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.717-1.456L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.963C16.528 2.022 14.062.992 11.435.992c-5.43 0-9.854 4.381-9.858 9.804-.001 1.694.449 3.349 1.306 4.81l-.969 3.541 3.633-.953z"/></svg>
+          Iniciar Consulta vía WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="admin" class="admin-section">
+    <div class="container">
+      <div class="admin-box">
+        <span class="eyebrow">Administración</span>
+        <h3 style="font-family: Georgia, serif; margin-bottom: 24px; font-weight: 400; color: var(--forest);">Carga Autogestionable</h3>
+        
+        <div id="admin-login">
+          <div class="form-group">
+            <label for="admin-pass">Contraseña del Panel</label>
+            <input type="password" id="admin-pass" placeholder="Ingresá la clave de acceso" />
+          </div>
+          <button class="btn" onclick="loginAdmin()">Ingresar</button>
+        </div>
+
+        <div id="admin-form-content">
+          <p style="color: var(--muted); margin-bottom: 20px; font-size: 0.9rem;">Sesión activa. Podés subir fotos de tu carpeta local, el sistema las comprimirá automáticamente.</p>
+          
+          <form id="project-form" onsubmit="addProject(event)">
+            <div class="form-group">
+              <label>Título del Proyecto</label>
+              <input type="text" id="p-title" required placeholder="Ej: Casa Terrazas" />
+            </div>
+            <div class="form-group">
+              <label>Categoría</label>
+              <input type="text" id="p-category" required placeholder="Ej: Residencial / Comercial" />
+            </div>
+            <div class="form-group">
+              <label>Año</label>
+              <input type="text" id="p-year" required placeholder="Ej: 2026" />
+            </div>
+            <div class="form-group">
+              <label>Seleccionar Foto de Portada</label>
+              <input type="file" id="p-img-file" accept="image/*" required />
+              <small>Esta imagen representará el proyecto en el inicio.</small>
+            </div>
+            <div class="form-group">
+              <label>Seleccionar Fotos de la Galería</label>
+              <input type="file" id="p-gallery-files" accept="image/*" multiple />
+              <small>Podés seleccionar **múltiples fotos a la vez** (planos, interiores, etc).</small>
+            </div>
+            <div class="form-group">
+              <label>Descripción Extendida</label>
+              <textarea id="p-desc" required placeholder="Detalles de la obra, distribución, metros cuadrados, materiales..."></textarea>
+            </div>
+            <div style="display: flex; gap: 10px;">
+              <button type="submit" class="btn" id="submit-btn">Publicar Obra</button>
+              <button type="button" class="btn btn-danger" onclick="logoutAdmin()">Cerrar Sesión</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const defaultProjects = [
+      {
+        id: "1",
+        title: "Casa Terrazas",
+        category: "Residencial",
+        year: "2025",
+        img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80",
+        gallery: [
+          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80"
+        ],
+        desc: "Vivienda unifamiliar con integración de espacios verdes y hormigón visto.\n\nEl proyecto se organiza en dos plantas liberando el terreno para generar patios internos que proveen iluminación cenital en todos los pasillos de distribución."
+      }
+    ];
+
+    let projects = JSON.parse(localStorage.getItem('arquitectura_local_projects')) || defaultProjects;
+    let isAdmin = false;
+    
+    let projectsLimit = 3; 
+    let showAll = false;
+
+    function renderProjects() {
+      const container = document.getElementById('portfolio-container');
+      container.innerHTML = '';
+
+      const projectsToRender = showAll ? projects : projects.slice(0, projectsLimit);
+
+      projectsToRender.forEach(p => {
+        const card = document.createElement('article');
+        card.className = 'project-card';
+        card.setAttribute('onclick', `openProject('${p.id}')`);
+        
+        card.innerHTML = `
+          <button class="delete-btn-admin" style="display: ${isAdmin ? 'block' : 'none'}" onclick="event.stopPropagation(); deleteProject('${p.id}')">Eliminar X</button>
+          <div class="project-img">
+            <img src="${p.img}" alt="${p.title}" loading="lazy" />
+          </div>
+          <div class="project-info">
+            <div class="project-meta">
+              <span>${p.category}</span>
+              <span>${p.year}</span>
+            </div>
+            <h3>${p.title}</h3>
+            <p>${p.desc.substring(0, 85)}...</p>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+
+      const loadMoreBox = document.getElementById('load-more-box');
+      if (!showAll && projects.length > projectsLimit) {
+        loadMoreBox.style.display = 'block';
+      } else {
+        loadMoreBox.style.display = 'none';
+      }
+    }
+
+    function showAllProjects() {
+      showAll = true;
+      renderProjects();
+    }
+
+    function toggleModal(show) {
+      const modal = document.getElementById('project-modal');
+      if (show) {
+        modal.classList.add('active');
+        document.body.classList.add('modal-open');
+      } else {
+        modal.classList.remove('active');
+        document.body.classList.remove('modal-open');
+      }
+    }
+
+    function closeModal(e) {
+      if(e.target.classList.contains('modal-overlay')) toggleModal(false);
+    }
+
+    function openProject(id) {
+      const p = projects.find(item => item.id === id);
+      if (!p) return;
+
+      document.getElementById('modal-title').innerText = p.title;
+      document.getElementById('modal-meta').innerText = `${p.category} — ${p.year}`;
+      document.getElementById('modal-desc').innerText = p.desc;
+
+      const galleryContainer = document.getElementById('modal-gallery-container');
+      galleryContainer.innerHTML = '';
+
+      const mainImg = document.createElement('img');
+      mainImg.src = p.img;
+      galleryContainer.appendChild(mainImg);
+
+      if (p.gallery && p.gallery.length > 0) {
+        p.gallery.forEach(url => {
+          const img = document.createElement('img');
+          img.src = url;
+          galleryContainer.appendChild(img);
+        });
+      }
+
+      toggleModal(true);
+    }
+
+    function compressImage(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function (event) {
+          const img = new Image();
+          img.src = event.target.result;
+          img.onload = function () {
+            const canvas = document.createElement('canvas');
+            const maxWidth = 1200;
+            let width = img.width;
+            let height = img.height;
+
+            if (width > maxWidth) {
+              height = Math.round((height * maxWidth) / width);
+              width = maxWidth;
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+
+            const dataUrl = canvas.toDataURL('image/jpeg', 0.75);
+            resolve(dataUrl);
+          };
+        };
+        reader.onerror = error => reject(error);
+      });
+    }
+
+    function loginAdmin() {
+      if (document.getElementById('admin-pass').value === 'kira2026') {
+        isAdmin = true;
+        document.getElementById('admin-login').style.display = 'none';
+        document.getElementById('admin-form-content').style.display = 'block';
+        renderProjects();
+      } else {
+        alert('Contraseña incorrecta');
+      }
+    }
+
+    function logoutAdmin() {
+      isAdmin = false;
+      document.getElementById('admin-login').style.display = 'block';
+      document.getElementById('admin-form-content').style.display = 'none';
+      document.getElementById('admin-pass').value = '';
+      renderProjects();
+    }
+
+    async function addProject(e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById('submit-btn');
+      submitBtn.innerText = 'Procesando imágenes...';
+      submitBtn.disabled = true;
+
+      try {
+        const title = document.getElementById('p-title').value;
+        const category = document.getElementById('p-category').value;
+        const year = document.getElementById('p-year').value;
+        const desc = document.getElementById('p-desc').value;
+
+        const coverFileInput = document.getElementById('p-img-file').files[0];
+        if(!coverFileInput) return alert('Por favor, selecciona una foto de portada');
+        const compressedCover = await compressImage(coverFileInput);
+
+        const galleryFilesInput = document.getElementById('p-gallery-files').files;
+        const compressedGallery = [];
+        
+        for (let i = 0; i < galleryFilesInput.length; i++) {
+          const compressedPic = await compressImage(galleryFilesInput[i]);
+          compressedGallery.push(compressedPic);
+        }
+
+        const newProject = {
+          id: Date.now().toString(),
+          title,
+          category,
+          year,
+          img: compressedCover,
+          gallery: compressedGallery,
+          desc
+        };
+
+        projects.push(newProject);
+        localStorage.setItem('arquitectura_local_projects', JSON.stringify(projects));
+        
+        showAll = false;
+        renderProjects();
+        
+        document.getElementById('project-form').reset();
+        alert('¡Proyecto cargado exitosamente!');
+
+      } catch (error) {
+        console.error(error);
+        alert('Hubo un problema al comprimir las imágenes.');
+      } finally {
+        submitBtn.innerText = 'Publicar Obra';
+        submitBtn.disabled = false;
+      }
+    }
+
+    function deleteProject(id) {
+      if (confirm('¿Seguro que deseas eliminar esta obra?')) {
+        projects = projects.filter(p => p.id !== id);
+        localStorage.setItem('arquitectura_local_projects', JSON.stringify(projects));
+        renderProjects();
+      }
+    }
+
+    renderProjects();
+  </script>
+</body>
+</html>
