@@ -914,30 +914,43 @@
     }
 
     function openProject(id) {
+      // 1. Buscamos el proyecto
       const p = projects.find(item => item.id.toString() === id.toString());
-      if (!p) return;
+      if (!p) {
+        console.error("No se encontró el proyecto con ID:", id);
+        return;
+      }
 
+      // 2. Rellenamos el contenido del modal
       document.getElementById('modal-title').innerText = p.titulo || 'Sin título';
       document.getElementById('modal-meta').innerText = `${p.category || 'Arquitectura'} — ${p.year || ''}`;
       document.getElementById('modal-desc').innerText = p.descripcion || '';
 
       const galleryContainer = document.getElementById('modal-gallery-container');
-      galleryContainer.innerHTML = '';
+      galleryContainer.innerHTML = ''; // Limpiamos lo anterior
 
+      // 3. Agregamos imagen principal si existe
       if (p.img) {
         const mainImg = document.createElement('img');
         mainImg.src = p.img;
         galleryContainer.appendChild(mainImg);
       }
 
-      if (p.gallery && p.gallery.length > 0) {
-        p.gallery.forEach(url => {
+      // 4. Agregamos la galería (Manejando si p.gallery viene como array o string)
+      let galeria = p.gallery;
+      if (typeof galeria === 'string') {
+        try { galeria = JSON.parse(galeria); } catch (e) { galeria = []; }
+      }
+      
+      if (Array.isArray(galeria)) {
+        galeria.forEach(url => {
           const img = document.createElement('img');
           img.src = url;
           galleryContainer.appendChild(img);
         });
       }
 
+      // 5. Mostramos el modal
       toggleModal(true);
     }
 
