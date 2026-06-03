@@ -689,8 +689,8 @@
     <div class="container">
       <div class="hero-content">
         <span class="eyebrow">Visualización & Diseño</span>
-        <h1>Visualización Arquitectónica de Vanguardia</h1>
-        <p>Transformo conceptos abstractos en experiencias visuales memorables de alta fidelidad.</p>
+        <h1>aaaaaaaa</h1>
+        <p>eeee</p>
         <div style="display: flex; gap: 16px; flex-wrap: wrap;">
           <a href="#proyectos" class="btn">Explorar Obras</a>
           <a href="#contacto" class="btn btn-outline">Escribirme</a>
@@ -864,8 +864,9 @@
         card.className = 'project-card';
         card.setAttribute('onclick', `openProject('${p.id}')`);
         
-        const cortaDescripcion = p.descripcion ? p.descripcion.substring(0, 85) + '...' : 'Sin descripción.';
-        
+        const cortaDescripcion = (p.descripcion && typeof p.descripcion === 'string') 
+            ? p.descripcion.substring(0, 85) + '...' 
+            : 'Sin descripción.';        
         // El event.stopPropagation() acá adentro frena el click para que no abra el modal al intentar borrar
         card.innerHTML = `
           <button class="delete-btn-admin" style="display: ${isAdmin ? 'block' : 'none'}" onclick="event.stopPropagation(); deleteProject('${p.id}')">Eliminar X</button>
