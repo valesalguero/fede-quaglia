@@ -7,7 +7,7 @@
   <title>Arq. Federico Quaglia | Portfolio Profesional</title>
   <style>
     :root {
-      /* Paleta basada en tu identidad visual */
+      /* Paleta original basada en tu identidad visual */
       --bg: #f5f2eb;           
       --surface: #ffffff;      
       --ink: #11261f;          
@@ -20,7 +20,7 @@
       --accent: #1b3d32;       
       
       --shadow: 0 30px 80px rgba(27, 61, 50, 0.08);
-      --radius: 4px; /* Bordes más rectos y limpios, estilo arquitectónico */
+      --radius: 4px; 
       --max: 1200px;
       --danger: #b32626;
     }
@@ -155,7 +155,7 @@
       color: var(--danger);
     }
 
-    /* NAVBAR MINIMALISTA */
+    /* NAVBAR */
     .navbar {
       backdrop-filter: blur(20px);
       background: rgba(245, 242, 235, 0.85);
@@ -250,7 +250,7 @@
     .nav-links a:hover { color: var(--forest); }
     .nav-links a:hover::after { transform: scaleX(1); }
 
-    /* REDISEÑO: HERO IMPACTANTE (PANTALLA COMPLETA Editorial) */
+    /* HERO */
     .hero {
       position: relative;
       height: 100vh;
@@ -269,7 +269,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.45; /* Atenuación para que el texto sea perfectamente legible */
+      opacity: 0.45;
       filter: grayscale(15%);
     }
 
@@ -301,7 +301,7 @@
       font-weight: 300;
     }
 
-    /* REDISEÑO: SOBRE MÍ COMO REVISTA DE ARQUITECTURA */
+    /* SOBRE MÍ */
     .about-layout {
       display: grid;
       grid-template-columns: 0.8fr 1.2fr;
@@ -354,7 +354,7 @@
       text-align: justify;
     }
 
-    /* PORTFOLIO GRID (Manteniendo tus requerimientos de imagen entera) */
+    /* PORTFOLIO GRID */
     .portfolio-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
@@ -379,7 +379,6 @@
       border-color: var(--wood);
     }
 
-    /* Contenedor optimizado: Muestra la imagen COMPLETA con fondo fino texturado oscuro */
     .project-img {
       width: 100%;
       height: 300px;
@@ -393,7 +392,7 @@
     .project-img img {
       width: 100%;
       height: 100%;
-      object-fit: contain; 
+      object-fit: cover; 
       transition: transform 400ms ease;
     }
 
@@ -434,29 +433,34 @@
       line-height: 1.6;
     }
 
+    /* BOTÓN BORRAR REPOSICIONADO CON Z-INDEX CORRECTO */
     .delete-btn-admin {
       position: absolute;
       top: 15px;
       right: 15px;
-      background: rgba(179, 38, 38, 0.95);
+      background: var(--danger);
       color: white;
       padding: 8px 14px;
-      font-size: 0.7rem;
+      font-size: 0.75rem;
       font-weight: bold;
       border-radius: var(--radius);
       text-transform: uppercase;
       display: none;
-      z-index: 10;
+      z-index: 50; 
       letter-spacing: 0.05em;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      border: none;
+    }
+    .delete-btn-admin:hover {
+      background: #e62222;
     }
 
-    /* BOTÓN MOSTRAR MÁS ACCESIBLE */
     .load-more-container {
       text-align: center;
       margin-top: 64px;
     }
 
-    /* DETALLE DEL PROYECTO (MODAL INTERACTIVO PREMIUM) */
+    /* MODAL */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -544,7 +548,7 @@
       text-align: justify;
     }
 
-    /* SECCIÓN DE CONTACTO MINIMALISTA */
+    /* CONTACTO */
     .contact-card {
       background: var(--forest);
       color: var(--bg);
@@ -595,7 +599,7 @@
     .contact-card .btn:hover { background: transparent; color: var(--bg); }
     .contact-card svg { height: 16px; width: 16px; fill: currentColor; }
 
-    /* PANEL ADMIN CONTEMPORÁNEO */
+    /* PANEL ADMIN */
     .admin-section {
       background: var(--soft);
       border-top: 1px solid var(--line);
@@ -640,11 +644,8 @@
       border-color: var(--wood);
     }
     .form-group textarea { resize: vertical; height: 140px; }
-    .form-group input[type="file"] { padding: 8px 0; }
-    .form-group small { color: var(--muted); font-size: 0.78rem; margin-top: -2px; }
     #admin-form-content { display: none; }
 
-    /* RESPONSIVE DESIGN */
     @media (max-width: 992px) {
       .about-layout { grid-template-columns: 1fr; gap: 48px; }
       .about-sticky-side { position: relative; top: 0; align-items: center; text-align: center; }
@@ -687,7 +688,7 @@
     <img class="hero-bg-cover" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=80" alt="Arquitectura de Vanguardia" />
     <div class="container">
       <div class="hero-content">
-        <span class="eyebrow" style="color: var(--wood);">Visualización & Diseño</span>
+        <span class="eyebrow">Visualización & Diseño</span>
         <h1>Visualización Arquitectónica de Vanguardia</h1>
         <p>Transformo conceptos abstractos en experiencias visuales memorables de alta fidelidad.</p>
         <div style="display: flex; gap: 16px; flex-wrap: wrap;">
@@ -741,7 +742,7 @@
         <p id="modal-desc"></p>
       </div>
     </div>
-  </section>
+  </div>
 
   <section id="contacto" class="section">
     <div class="container">
@@ -762,7 +763,7 @@
         </div>
 
         <a href="https://wa.me/3534012667?text=Hola%20Federico!%20Vi%20tu%20portfolio%20web%20y%20me%20interesaría%20realizar%20una%20consulta%20sobre%20un%20proyecto." target="_blank" class="btn">
-          <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.717-1.456L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.963C16.528 2.022 14.062.992 11.435.992c-5.43 0-9.854 4.381-9.858 9.804-.001 1.694.449 3.349 1.306 4.81l-.969 3.541 3.633-.953z"/></svg>
+          <svg viewBox="0 0 24 24" style="width:16px; height:16px; fill:currentColor;"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.717-1.456L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.963C16.528 2.022 14.062.992 11.435.992c-5.43 0-9.854 4.381-9.858 9.804-.001 1.694.449 3.349 1.306 4.81l-.969 3.541 3.633-.953z"/></svg>
           Iniciar Consulta vía WhatsApp
         </a>
       </div>
@@ -802,16 +803,14 @@
             <div class="form-group">
               <label>Seleccionar Foto de Portada</label>
               <input type="file" id="p-img-file" accept="image/*" required />
-              <small>Esta imagen representará el proyecto en el inicio.</small>
             </div>
             <div class="form-group">
               <label>Seleccionar Fotos de la Galería</label>
               <input type="file" id="p-gallery-files" accept="image/*" multiple />
-              <small>Podés seleccionar **múltiples fotos a la vez** (planos, interiores, etc).</small>
             </div>
             <div class="form-group">
               <label>Descripción Extendida</label>
-              <textarea id="p-desc" required placeholder="Detalles de la obra, distribución, metros cuadrados, materiales..."></textarea>
+              <textarea id="p-desc" required placeholder="Detalles de la obra..."></textarea>
             </div>
             <div style="display: flex; gap: 10px;">
               <button type="submit" class="btn" id="submit-btn">Publicar Obra</button>
@@ -824,7 +823,7 @@
   </section>
 
   <script>
-    // CONFIGURACIÓN DE SUPABASE
+    // REEMPLAZÁ CON TUS DATOS REALES DE SUPABASE
     const SUPABASE_URL = "https://debizrveislybpsiimln.supabase.co";
     const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRlYml6cnZlaXNseWJwc2lpbWxuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0MzM3MDEsImV4cCI6MjA5NjAwOTcwMX0.PuP0YGfLSeoeARZcSm2SNZhuVJ8-UwW6ZU5DGeVwq_0";
 
@@ -833,30 +832,27 @@
     let projectsLimit = 3; 
     let showAll = false;
 
-    // Headers reutilizables para las peticiones HTTP a Supabase REST API
     const getHeaders = () => ({
-      "apikey": SUPABASE_ANON_KEY,
-      "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
-      "Content-Type": "application/json"
-    });
+    "apikey": SUPABASE_ANON_KEY,
+    "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+    "Content-Type": "application/json"
+});
 
-    // LEER PROYECTOS DESDE SUPABASE (Ordenados por fecha de creación desc)
     async function fetchProjects() {
       try {
         const response = await fetch(`${SUPABASE_URL}/rest/v1/proyectos?select=*&order=created_at.desc`, {
           method: "GET",
           headers: getHeaders()
         });
-        
-        if (!response.ok) throw new Error("Error cargando datos de Supabase");
-        
+        if (!response.ok) throw new Error("Error cargando de Supabase");
         projects = await response.json();
         renderProjects();
       } catch (error) {
-        console.error("Error en fetchProjects:", error);
+        console.error(error);
       }
     }
 
+    // MAPEO CORREGIDO EN ESPAÑOL Y SOLUCIÓN STOPPROPAGATION
     function renderProjects() {
       const container = document.getElementById('portfolio-container');
       container.innerHTML = '';
@@ -868,18 +864,21 @@
         card.className = 'project-card';
         card.setAttribute('onclick', `openProject('${p.id}')`);
         
+        const cortaDescripcion = p.descripcion ? p.descripcion.substring(0, 85) + '...' : 'Sin descripción.';
+        
+        // El event.stopPropagation() acá adentro frena el click para que no abra el modal al intentar borrar
         card.innerHTML = `
           <button class="delete-btn-admin" style="display: ${isAdmin ? 'block' : 'none'}" onclick="event.stopPropagation(); deleteProject('${p.id}')">Eliminar X</button>
           <div class="project-img">
-            <img src="${p.img}" alt="${p.title}" loading="lazy" />
+            <img src="${p.img || ''}" alt="${p.titulo || 'Proyecto'}" loading="lazy" />
           </div>
           <div class="project-info">
             <div class="project-meta">
-              <span>${p.category}</span>
-              <span>${p.year}</span>
+              <span>${p.category || 'Arquitectura'}</span>
+              <span>${p.year || ''}</span>
             </div>
-            <h3>${p.title}</h3>
-            <p>${p.desc.substring(0, 85)}...</p>
+            <h3>${p.titulo || 'Sin título'}</h3>
+            <p>${cortaDescripcion}</p>
           </div>
         `;
         container.appendChild(card);
@@ -914,20 +913,21 @@
     }
 
     function openProject(id) {
-      // Supabase usa IDs enteros o uuid. Buscamos compatibilidad convirtiendo a String
       const p = projects.find(item => item.id.toString() === id.toString());
       if (!p) return;
 
-      document.getElementById('modal-title').innerText = p.title;
-      document.getElementById('modal-meta').innerText = `${p.category} — ${p.year}`;
-      document.getElementById('modal-desc').innerText = p.desc;
+      document.getElementById('modal-title').innerText = p.titulo || 'Sin título';
+      document.getElementById('modal-meta').innerText = `${p.category || 'Arquitectura'} — ${p.year || ''}`;
+      document.getElementById('modal-desc').innerText = p.descripcion || '';
 
       const galleryContainer = document.getElementById('modal-gallery-container');
       galleryContainer.innerHTML = '';
 
-      const mainImg = document.createElement('img');
-      mainImg.src = p.img;
-      galleryContainer.appendChild(mainImg);
+      if (p.img) {
+        const mainImg = document.createElement('img');
+        mainImg.src = p.img;
+        galleryContainer.appendChild(mainImg);
+      }
 
       if (p.gallery && p.gallery.length > 0) {
         p.gallery.forEach(url => {
@@ -991,75 +991,72 @@
       renderProjects();
     }
 
-    // CREAR PROYECTO NUEVO EN SUPABASE
-    async function addProject(e) {
-      e.preventDefault();
-      const submitBtn = document.getElementById('submit-btn');
-      submitBtn.innerText = 'Procesando imágenes...';
-      submitBtn.disabled = true;
+async function addProject(e) {
+  e.preventDefault();
+  const submitBtn = document.getElementById('submit-btn');
+  submitBtn.innerText = 'Procesando...';
+  submitBtn.disabled = true;
 
-      try {
-        const title = document.getElementById('p-title').value;
-        const category = document.getElementById('p-category').value;
-        const year = document.getElementById('p-year').value;
-        const desc = document.getElementById('p-desc').value;
+  try {
+    const title = document.getElementById('p-title').value;
+    const category = document.getElementById('p-category').value;
+    const year = document.getElementById('p-year').value;
+    const desc = document.getElementById('p-desc').value;
 
-        const coverFileInput = document.getElementById('p-img-file').files[0];
-        if(!coverFileInput) return alert('Por favor, selecciona una foto de portada');
-        const compressedCover = await compressImage(coverFileInput);
+    const coverFileInput = document.getElementById('p-img-file').files[0];
+    const compressedCover = await compressImage(coverFileInput);
 
-        const galleryFilesInput = document.getElementById('p-gallery-files').files;
-        const compressedGallery = [];
-        
-        for (let i = 0; i < galleryFilesInput.length; i++) {
-          const compressedPic = await compressImage(galleryFilesInput[i]);
-          compressedGallery.push(compressedPic);
-        }
-
-        const newProject = {
-          title,
-          category,
-          year,
-          img: compressedCover,
-          gallery: compressedGallery, // Se guarda directo como JSON array gracias a Supabase
-          desc
-        };
-
-        submitBtn.innerText = 'Subiendo a Supabase...';
-
-        const response = await fetch(`${SUPABASE_URL}/rest/v1/proyectos`, {
-          method: "POST",
-          headers: getHeaders(),
-          body: JSON.stringify(newProject)
-        });
-
-        if (!response.ok) throw new Error("Error al insertar el proyecto en Supabase");
-
-        showAll = false;
-        await fetchProjects(); // Recargamos directo del servidor
-        
-        document.getElementById('project-form').reset();
-        alert('¡Proyecto cargado exitosamente en la nube!');
-
-      } catch (error) {
-        console.error(error);
-        alert('Hubo un problema al guardar el proyecto.');
-      } finally {
-        submitBtn.innerText = 'Publicar Obra';
-        submitBtn.disabled = false;
-      }
+    const galleryFilesInput = document.getElementById('p-gallery-files').files;
+    const compressedGallery = [];
+    for (let i = 0; i < galleryFilesInput.length; i++) {
+      const compressedPic = await compressImage(galleryFilesInput[i]);
+      compressedGallery.push(compressedPic);
     }
 
-    // ELIMINAR PROYECTO EN SUPABASE
+    // AQUI ESTA LA CLAVE PARA EL ERROR 400
+    const newProject = {
+      titulo: title,
+      category: category,
+      year: parseInt(year), // Convertimos a número
+      img: compressedCover,
+      gallery: compressedGallery, // Si tu columna es tipo JSON/JSONB, Supabase lo acepta así
+      descripcion: desc
+    };
+
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/proyectos`, {
+      method: "POST",
+      headers: getHeaders(), // Usamos tu función corregida
+      body: JSON.stringify(newProject)
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error("Detalle del error:", errorData); // ESTO TE DIRA QUE FALTA
+      throw new Error("Error al insertar");
+    }
+
+    alert('¡Proyecto cargado!');
+    await fetchProjects();
+  } catch (error) {
+    console.error(error);
+    alert('Revisa la consola (F12) para ver el error exacto.');
+  } finally {
+    submitBtn.innerText = 'Publicar Obra';
+    submitBtn.disabled = false;
+  }
+}
+
+    // ELIMINAR CON RECONOCIMIENTO DE ID DINÁMICO
     async function deleteProject(id) {
       if (confirm('¿Seguro que deseas eliminar esta obra permanentemente?')) {
         try {
-          const response = await fetch(`${SUPABASE_URL}/rest/v1/proyectos?id=eq.${id}`, {
+          const queryParam = isNaN(id) ? `eq.${id}` : `eq.${parseInt(id)}`;
+          const response = await fetch(`${SUPABASE_URL}/rest/v1/proyectos?id=${queryParam}`, {
             method: "DELETE",
             headers: getHeaders()
           });
 
-          if (!response.ok) throw new Error("Error al eliminar de Supabase");
+          if (!response.ok) throw new Error("Error al eliminar");
 
           await fetchProjects();
           alert('Proyecto eliminado con éxito.');
@@ -1070,7 +1067,6 @@
       }
     }
 
-    // Inicialización al cargar la página
     fetchProjects();
   </script>
 </body>
